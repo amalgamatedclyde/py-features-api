@@ -29,7 +29,7 @@ mv $CAFFE_DIR/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel \
 mv $CAFFE_DIR/data/ilsvrc12 $PROJECT_DIR/data/.
 mv $CAFFE_DIR/python/caffe/imagenet/ilsvrc_2012_mean.npy $PROJECT_DIR/data/.
 ```
-
+####@clyde found that the app was looking for the above files in /home/user/ Prob need to export a path variable
 [1]: https://github.com/BVLC/caffe/releases/tag/rc3
 [2]: http://caffe.berkeleyvision.org/gathered/examples/web_demo.html
 

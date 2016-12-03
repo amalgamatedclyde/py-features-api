@@ -120,10 +120,11 @@ class ImagenetClassifier(object):
     def __init__(self, model_def_file, pretrained_model_file, mean_file,
                  raw_scale, class_labels_file, bet_file, image_dim, gpu_mode):
         logging.info('Loading net and associated files...')
-        if gpu_mode:
-            caffe.set_mode_gpu()
-        else:
-            caffe.set_mode_cpu()
+        caffe.set_mode_cpu()
+        # if gpu_mode:
+        #     caffe.set_mode_gpu()
+        # else:
+        #     caffe.set_mode_cpu()
         self.net = caffe.Classifier(
             model_def_file, pretrained_model_file,
             image_dims=(image_dim, image_dim), raw_scale=raw_scale,
@@ -209,7 +210,7 @@ def start_from_terminal(app):
         action='store_true', default=False)
 
     opts, args = parser.parse_args()
-    ImagenetClassifier.default_args.update({'gpu_mode': opts.gpu})
+    ImagenetClassifier.default_args.update({'gpu_mode': False})
 
     # Initialize classifier + warm start by forward for allocation
     app.clf = ImagenetClassifier(**ImagenetClassifier.default_args)
