@@ -24,8 +24,8 @@ Once the downloads are complete, move the files into position as follows.
 ```bash
 # Assume CAFFE_DIR is the path to the Caffe project directory,
 # and PROJECT_DIR is the path to this project directory.
-mv $CAFFE_DIR/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel \
-    $PROJECT_DIR\models\.
+mv $CAFFE_DIR/models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel \
+    $PROJECT_DIR/models/.
 mv $CAFFE_DIR/data/ilsvrc12 $PROJECT_DIR/data/.
 mv $CAFFE_DIR/python/caffe/imagenet/ilsvrc_2012_mean.npy $PROJECT_DIR/data/.
 ```
