@@ -1,13 +1,12 @@
 import caffe
-import numpy as np
 import urllib
 import StringIO
 
 # Taken from the official Caffe repo
-from app import ImagenetClassifier
+from app import ImagenetClassifier, ClassificationError
 
 # Configure Caffe and load the model
-# caffe.set_device(0)
+# caffe.set_device(0) forces GPU mode
 caffe.set_mode_cpu()
 
 # Initialize classifier + warm start by forward for allocation

@@ -1,6 +1,5 @@
 import json
 import tornado.web
-
 import nets
 
 

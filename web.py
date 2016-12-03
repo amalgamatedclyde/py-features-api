@@ -1,11 +1,11 @@
 import tornado.ioloop
 import tornado.web
-
 from api import ClassesHandler
 
+
 class MainHandler(tornado.web.RequestHandler):
-    def get(self):
-        self.write("Hello, world")
+    pass
+
 
 def make_app():
     return tornado.web.Application([
