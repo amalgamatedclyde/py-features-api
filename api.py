@@ -4,15 +4,14 @@ import nets
 
 
 class ClassesHandler(tornado.web.RequestHandler):
+
     def prepare(self):
         if self.request.headers["Content-Type"].startswith("application/json"):
             self.json_args = json.loads(self.request.body)
         else:
             self.json_args = None
 
-
     def post(self):
-
         # Get a convenient handle on the given URI
         req_data = self.json_args['data']
 
@@ -21,3 +20,4 @@ class ClassesHandler(tornado.web.RequestHandler):
 
         # Send the extracted features back in the response
         self.write(dict(data=classes))
+

@@ -50,8 +50,7 @@ class ImagenetClassifier(object):
 
         with open(class_labels_file) as f:
             labels_df = pd.DataFrame([
-                {    # def get(self):
-    #     self.write("Hello, world")
+                {
                     'synset_id': l.strip().split(' ')[0],
                     'name': ' '.join(l.strip().split(' ')[1:]).split(',')[0]
                 }

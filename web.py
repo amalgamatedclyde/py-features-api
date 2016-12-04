@@ -4,7 +4,9 @@ from api import ClassesHandler
 
 
 class MainHandler(tornado.web.RequestHandler):
-    pass
+    """mainhandler"""
+    def get(self):
+        self.write('Welcome!')
 
 
 def make_app():

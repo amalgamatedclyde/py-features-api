@@ -1,3 +1,4 @@
+date
 curl -XPOST \
     -H 'Content-Type: application/json' \
     -d '{
@@ -6,3 +7,4 @@ curl -XPOST \
         }
     }' \
     "http://localhost:80/classes"
+date
