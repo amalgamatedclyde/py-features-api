@@ -1,5 +1,5 @@
 ##Notes
-
+####Caffe Build
 - i built Caffe on my local machine and an EC2 m4.large instance
 - Caffe build had more issues on ubuntu 16.04. I had to remove opencv from the environment.
 - i had to symlink libhd5:
