@@ -6,8 +6,9 @@ import numpy as np
 import pandas as pd
 import caffe
 
-# REPO_DIRNAME = os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + '/../..')
-REPO_DIRNAME = os.getcwd()
+
+REPO_DIRNAME = os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + '/../..')
+# REPO_DIRNAME = os.getcwd()
 UPLOAD_FOLDER = '/tmp/caffe_demos_uploads'
 ALLOWED_IMAGE_EXTENSIONS = set(['png', 'bmp', 'jpg', 'jpe', 'jpeg', 'gif'])
 
@@ -37,7 +38,7 @@ class ImagenetClassifier(object):
 
     def __init__(self, model_def_file, pretrained_model_file, mean_file,
                  raw_scale, class_labels_file, bet_file, image_dim, gpu_mode):
-        logging.info('Loading net and associated files...')
+        # logging.info('Loading net and associated files...')
         caffe.set_mode_cpu() #AWS instances running in CPU
         # if gpu_mode:
         #     caffe.set_mode_gpu()
@@ -80,7 +81,7 @@ class ImagenetClassifier(object):
                 (p, '%.5f' % scores[i])
                 for i, p in zip(indices, predictions)
             ]
-            logging.info('result: %s', str(meta))
+            # logging.info('result: %s', str(meta))
 
             # Compute expected information gain
             expected_infogain = np.dot(
@@ -91,13 +92,13 @@ class ImagenetClassifier(object):
             infogain_sort = expected_infogain.argsort()[::-1]
             bet_result = [(self.bet['words'][v], '%.5f' % expected_infogain[v])
                           for v in infogain_sort[:5]]
-            logging.info('bet result: %s', str(bet_result))
+            # logging.info('bet result: %s', str(bet_result))
 
             return (True, meta, bet_result, '%.3f' % (endtime - starttime))
 
         except Exception as err: #what can go wrong?
             raise ClassificationError('Something went wrong when classifying the '
                            'image. Maybe try another one?')
-            logging.info('Classification error: %s', err)
+            # logging.info('Classification error: %s', err)
             return (False, 'Something went wrong when classifying the '
                            'image. Maybe try another one?')
