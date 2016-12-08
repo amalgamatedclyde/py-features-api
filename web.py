@@ -29,5 +29,5 @@ if __name__ == "__main__":
     app = make_app()
     server = httpserver.HTTPServer(app, xheaders=True)
     server.bind(8888)
-    server.start(0)  # forks one process per cpu
+    server.start(1)  # forks one process per cpu
     tornado.ioloop.IOLoop.current().start()
