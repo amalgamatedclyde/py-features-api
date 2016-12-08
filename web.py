@@ -23,11 +23,11 @@ def make_app():
     ])
 
 if __name__ == "__main__":
-    # app = make_app()
-    # app.listen(8888, xheaders=True)
-    # tornado.ioloop.IOLoop.current().start()
     app = make_app()
-    server = httpserver.HTTPServer(app, xheaders=True)
-    server.bind(8888)
-    server.start(1)  # forks one process per cpu
+    app.listen(8888, xheaders=True)
     tornado.ioloop.IOLoop.current().start()
+    # app = make_app()
+    # server = httpserver.HTTPServer(app, xheaders=True)
+    # server.bind(8888)
+    # server.start(1)  # forks one process per cpu
+    # tornado.ioloop.IOLoop.current().start()
