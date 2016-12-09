@@ -39,7 +39,7 @@ class ImagenetClassifier(object):
     def __init__(self, model_def_file, pretrained_model_file, mean_file,
                  raw_scale, class_labels_file, bet_file, image_dim, gpu_mode):
         # logging.info('Loading net and associated files...')
-        caffe.set_mode_cpu() #AWS instances running in CPU
+        caffe.set_mode_cpu() #AWS instances running in CPU mode
         # if gpu_mode:
         #     caffe.set_mode_gpu()
         # else:

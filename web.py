@@ -2,6 +2,9 @@ import tornado.ioloop
 import tornado.web
 from tornado import httpserver
 from api import ClassesHandler
+from tornado.options import define, options
+
+define("port", default=8888)
 import os
 # import bugsnag
 #
@@ -23,11 +26,10 @@ def make_app():
     ])
 
 if __name__ == "__main__":
+    options.parse_command_line()
     app = make_app()
-    app.listen(8888, xheaders=True)
+    port = options.port
+    server = httpserver.HTTPServer(app, xheaders=True)
+    server.listen(port)
+    print 'Listening on port {}'.format(port)
     tornado.ioloop.IOLoop.current().start()
-    # app = make_app()
-    # server = httpserver.HTTPServer(app, xheaders=True)
-    # server.bind(8888)
-    # server.start(1)  # forks one process per cpu
-    # tornado.ioloop.IOLoop.current().start()
