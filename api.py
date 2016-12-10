@@ -1,9 +1,10 @@
 import json
 import tornado.web
 import nets
-from tornado import gen
+from bugsnag.tornado import BugsnagRequestHandler
 
-class ClassesHandler(tornado.web.RequestHandler):
+
+class ClassesHandler(BugsnagRequestHandler):
 
     def prepare(self):
         if self.request.headers["Content-Type"].startswith("application/json"):

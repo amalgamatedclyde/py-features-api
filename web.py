@@ -6,18 +6,25 @@ from tornado.options import define, options
 
 define("port", default=8888)
 import os
-# import bugsnag
-#
-# bugsnag.configure(
-#   api_key = "4645fab58b53cfe39793d3daf9c7e509",
-#   project_root = os.getcwd()
-# )
+import bugsnag
+from bugsnag.tornado import BugsnagRequestHandler
+bugsnag.configure(
+    api_key="16a92cf41c182a50aee6ca80fae9d65d",
+    project_root="/home/ubuntu/py-features-api",
+)
 
-class MainHandler(tornado.web.RequestHandler):
+
+# class MainHandler(tornado.web.RequestHandler):
+#     """mainhandler"""
+#     def get(self):
+#         self.write('Welcome!')
+
+
+class MainHandler(BugsnagRequestHandler):
     """mainhandler"""
+
     def get(self):
         self.write('Welcome!')
-
 
 def make_app():
     return tornado.web.Application([
@@ -33,3 +40,4 @@ if __name__ == "__main__":
     server.listen(port)
     print 'Listening on port {}'.format(port)
     tornado.ioloop.IOLoop.current().start()
+    bugsnag.notify()
