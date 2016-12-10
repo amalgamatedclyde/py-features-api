@@ -20,7 +20,7 @@ class ClassificationError(Exception):
 
 class ImagenetClassifier(object):
 
-    model_def_file = '{}/models/bvlc_reference_caffenet/deploy.prototxt'.format(REPO_DIRNAME)
+    model_def_file = '{}/models/deploy.prototxt'.format(REPO_DIRNAME)
     pretrained_model_file = '{}/models/bvlc_reference_caffenet.caffemodel'.format(REPO_DIRNAME)
     mean_file = '{}/python/caffe/imagenet/ilsvrc_2012_mean.npy'.format(REPO_DIRNAME)
     class_labels_file = '{}/data/ilsvrc12/synset_words.txt'.format(REPO_DIRNAME)
