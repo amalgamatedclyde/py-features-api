@@ -47,8 +47,7 @@ class ImagenetClassifier(object):
     image_dim = 256
     raw_scale = 255
 
-    def __init__(self, model_def_file, pretrained_model_file, mean_file,
-                 raw_scale, class_labels_file, bet_file, image_dim, gpu_mode):
+    def __init__(self):
         # logging.info('Loading net and associated files...')
         caffe.set_mode_cpu() #AWS instances running in CPU mode
         # if gpu_mode:
@@ -56,12 +55,12 @@ class ImagenetClassifier(object):
         # else:
         #     caffe.set_mode_cpu()
         self.net = caffe.Classifier(
-            model_def_file, pretrained_model_file,
-            image_dims=(image_dim, image_dim), raw_scale=raw_scale,
-            mean=np.load(mean_file).mean(1).mean(1), channel_swap=(2, 1, 0)
+            self.model_def_file, self.pretrained_model_file,
+            image_dims=(self.image_dim, self.image_dim), raw_scale=self.raw_scale,
+            mean=np.load(self.mean_file).mean(1).mean(1), channel_swap=(2, 1, 0)
         )
 
-        with open(class_labels_file) as f:
+        with open(self.class_labels_file) as f:
             labels_df = pd.DataFrame([
                 {
                     'synset_id': l.strip().split(' ')[0],
@@ -71,7 +70,7 @@ class ImagenetClassifier(object):
             ])
         self.labels = labels_df.sort('synset_id')['name'].values
 
-        self.bet = cPickle.load(open(bet_file))
+        self.bet = cPickle.load(open(self.bet_file))
         # A bias to prefer children nodes in single-chain paths
         # I am setting the value to 0.1 as a quick, simple model.
         # We could use better psychological models here...
