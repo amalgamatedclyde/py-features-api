@@ -6,8 +6,7 @@ import numpy as np
 import pandas as pd
 import caffe
 
-
-REPO_DIRNAME = os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + '/../..')
+# REPO_DIRNAME = os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + '/../..')
 # REPO_DIRNAME = os.getcwd()
 REPO_DIRNAME = "/home/ubuntu/py-features-api"
 UPLOAD_FOLDER = '/tmp/caffe_demos_uploads'
@@ -23,7 +22,7 @@ class ImagenetClassifier(object):
         'model_def_file': (
             '{}/models/bvlc_reference_caffenet/deploy.prototxt'.format(REPO_DIRNAME)),
         'pretrained_model_file': (
-            '{}/models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel'.format(REPO_DIRNAME)),
+            '{}/models/bvlc_reference_caffenet.caffemodel'.format(REPO_DIRNAME)),
         'mean_file': (
             '{}/python/caffe/imagenet/ilsvrc_2012_mean.npy'.format(REPO_DIRNAME)),
         'class_labels_file': (
@@ -37,40 +36,27 @@ class ImagenetClassifier(object):
     default_args['image_dim'] = 256
     default_args['raw_scale'] = 255.
 
-# class ImagenetClassifier(object):
-#
-#     model_def_file = '{}/models/bvlc_reference_caffenet/deploy.prototxt'.format(REPO_DIRNAME)
-#     pretrained_model_file = '{}/models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel'.format(REPO_DIRNAME)
-#     mean_file = '{}/python/caffe/imagenet/ilsvrc_2012_mean.npy'.format(REPO_DIRNAME)
-#     class_labels_file = '{}/data/ilsvrc12/synset_words.txt'.format(REPO_DIRNAME)
-#     bet_file = '{}/data/ilsvrc12/imagenet.bet.pickle'.format(REPO_DIRNAME)
-#     image_dim = 256
-#     raw_scale = 255
-
-    def __init__(self):
-        # logging.info('Loading net and associated files...')
-        caffe.set_mode_cpu() #AWS instances running in CPU mode
-        # if gpu_mode:
-        #     caffe.set_mode_gpu()
-        # else:
-        #     caffe.set_mode_cpu()
+    def __init__(self, model_def_file, pretrained_model_file, mean_file,
+                 raw_scale, class_labels_file, bet_file, image_dim, gpu_mode):
+        logging.info('Loading net and associated files...')
+        caffe.set_mode_cpu()
         self.net = caffe.Classifier(
-            self.model_def_file, self.pretrained_model_file,
-            image_dims=(self.image_dim, self.image_dim), raw_scale=self.raw_scale,
-            mean=np.load(self.mean_file).mean(1).mean(1), channel_swap=(2, 1, 0)
+            model_def_file, pretrained_model_file,
+            image_dims=(image_dim, image_dim), raw_scale=raw_scale,
+            mean=np.load(mean_file).mean(1).mean(1), channel_swap=(2, 1, 0)
         )
 
-        with open(self.class_labels_file) as f:
+        with open(class_labels_file) as f:
             labels_df = pd.DataFrame([
-                {
-                    'synset_id': l.strip().split(' ')[0],
-                    'name': ' '.join(l.strip().split(' ')[1:]).split(',')[0]
-                }
-                for l in f.readlines()
-            ])
+                                         {
+                                             'synset_id': l.strip().split(' ')[0],
+                                             'name': ' '.join(l.strip().split(' ')[1:]).split(',')[0]
+                                         }
+                                         for l in f.readlines()
+                                         ])
         self.labels = labels_df.sort('synset_id')['name'].values
 
-        self.bet = cPickle.load(open(self.bet_file))
+        self.bet = cPickle.load(open(bet_file))
         # A bias to prefer children nodes in single-chain paths
         # I am setting the value to 0.1 as a quick, simple model.
         # We could use better psychological models here...
@@ -90,7 +76,7 @@ class ImagenetClassifier(object):
             meta = [
                 (p, '%.5f' % scores[i])
                 for i, p in zip(indices, predictions)
-            ]
+                ]
             # logging.info('result: %s', str(meta))
 
             # Compute expected information gain
@@ -106,9 +92,9 @@ class ImagenetClassifier(object):
 
             return (True, meta, bet_result, '%.3f' % (endtime - starttime))
 
-        except Exception as err: #what can go wrong?
+        except Exception as err:  # what can go wrong?
             raise ClassificationError('Something went wrong when classifying the '
-                           'image. Maybe try another one?')
+                                      'image. Maybe try another one?')
             # logging.info('Classification error: %s', err)
             return (False, 'Something went wrong when classifying the '
                            'image. Maybe try another one?')
