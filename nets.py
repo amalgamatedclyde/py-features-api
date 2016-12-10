@@ -11,22 +11,23 @@ from app import ImagenetClassifier, ClassificationError
 caffe.set_mode_cpu()
 
 # Initialize classifier + warm start by forward for allocation
-_classifier_args = {
-    'model_def_file': (
-        'models/deploy.prototxt'),
-    'pretrained_model_file': (
-        'models/bvlc_reference_caffenet.caffemodel'),
-    'mean_file': (
-        'data/ilsvrc_2012_mean.npy'),
-    'class_labels_file': (
-        'data/ilsvrc12/synset_words.txt'),
-    'bet_file': (
-        'data/ilsvrc12/imagenet.bet.pickle'),
-    'image_dim': 256,
-    'raw_scale': 255.0,
-    'gpu_mode': False,
-}
-_classifier = ImagenetClassifier(**_classifier_args)
+# _classifier_args = {
+#     'model_def_file': (
+#         'models/deploy.prototxt'),
+#     'pretrained_model_file': (
+#         'models/bvlc_reference_caffenet.caffemodel'),
+#     'mean_file': (
+#         'data/ilsvrc_2012_mean.npy'),
+#     'class_labels_file': (
+#         'data/ilsvrc12/synset_words.txt'),
+#     'bet_file': (
+#         'data/ilsvrc12/imagenet.bet.pickle'),
+#     'image_dim': 256,
+#     'raw_scale': 255.0,
+#     'gpu_mode': False,
+# }
+_classifier = ImagenetClassifier()
+_classifier_args = _classifier.default_args
 _classifier.net.forward()
 
 
