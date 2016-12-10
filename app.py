@@ -18,24 +18,34 @@ class ClassificationError(Exception):
     """raised for classifier errors"""
 
 
+# class ImagenetClassifier(object):
+#     default_args = {
+#         'model_def_file': (
+#             '{}/models/bvlc_reference_caffenet/deploy.prototxt'.format(REPO_DIRNAME)),
+#         'pretrained_model_file': (
+#             '{}/models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel'.format(REPO_DIRNAME)),
+#         'mean_file': (
+#             '{}/python/caffe/imagenet/ilsvrc_2012_mean.npy'.format(REPO_DIRNAME)),
+#         'class_labels_file': (
+#             '{}/data/ilsvrc12/synset_words.txt'.format(REPO_DIRNAME)),
+#         'bet_file': (
+#             '{}/data/ilsvrc12/imagenet.bet.pickle'.format(REPO_DIRNAME)),
+#     }
+#     for key, val in default_args.iteritems():
+#         if not os.path.exists(val):
+#             raise IOError("File for {} is missing. Should be at: {}".format(key, val))
+#     default_args['image_dim'] = 256
+#     default_args['raw_scale'] = 255.
+
 class ImagenetClassifier(object):
-    default_args = {
-        'model_def_file': (
-            '{}/models/bvlc_reference_caffenet/deploy.prototxt'.format(REPO_DIRNAME)),
-        'pretrained_model_file': (
-            '{}/models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel'.format(REPO_DIRNAME)),
-        'mean_file': (
-            '{}/python/caffe/imagenet/ilsvrc_2012_mean.npy'.format(REPO_DIRNAME)),
-        'class_labels_file': (
-            '{}/data/ilsvrc12/synset_words.txt'.format(REPO_DIRNAME)),
-        'bet_file': (
-            '{}/data/ilsvrc12/imagenet.bet.pickle'.format(REPO_DIRNAME)),
-    }
-    for key, val in default_args.iteritems():
-        if not os.path.exists(val):
-            raise IOError("File for {} is missing. Should be at: {}".format(key, val))
-    default_args['image_dim'] = 256
-    default_args['raw_scale'] = 255.
+
+    model_def_file = '{}/models/bvlc_reference_caffenet/deploy.prototxt'.format(REPO_DIRNAME)
+    pretrained_model_file = '{}/models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel'.format(REPO_DIRNAME)
+    mean_file = '{}/python/caffe/imagenet/ilsvrc_2012_mean.npy'.format(REPO_DIRNAME)
+    class_labels_file = '{}/data/ilsvrc12/synset_words.txt'.format(REPO_DIRNAME)
+    bet_file = '{}/data/ilsvrc12/imagenet.bet.pickle'.format(REPO_DIRNAME)
+    image_dim = 256
+    raw_scale = 255
 
     def __init__(self, model_def_file, pretrained_model_file, mean_file,
                  raw_scale, class_labels_file, bet_file, image_dim, gpu_mode):

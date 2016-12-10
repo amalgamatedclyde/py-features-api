@@ -27,7 +27,7 @@ caffe.set_mode_cpu()
 #     'gpu_mode': False,
 # }
 _classifier = ImagenetClassifier()
-_classifier_args = _classifier.default_args
+# _classifier_args = _classifier.default_args
 _classifier.net.forward()
 
 
