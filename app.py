@@ -29,6 +29,7 @@ class ImagenetClassifier(object):
             '{}/data/ilsvrc12/synset_words.txt'.format(REPO_DIRNAME)),
         'bet_file': (
             '{}/data/ilsvrc12/imagenet.bet.pickle'.format(REPO_DIRNAME)),
+        'gpu_mode': False,
     }
     for key, val in default_args.iteritems():
         if not os.path.exists(val):

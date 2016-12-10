@@ -6,6 +6,8 @@ import  base64
 # Taken from the official Caffe repo
 from app import ImagenetClassifier, ClassificationError
 
+REPO_DIRNAME = "/home/ubuntu/py-features-api"
+
 # Configure Caffe and load the model
 # caffe.set_device(0) forces GPU mode
 caffe.set_mode_cpu()
@@ -24,10 +26,27 @@ caffe.set_mode_cpu()
 #         'data/ilsvrc12/imagenet.bet.pickle'),
 #     'image_dim': 256,
 #     'raw_scale': 255.0,
-#     'gpu_mode': False,
+#     'gpu_mode': True,
 # }
-_classifier = ImagenetClassifier()
-# _classifier_args = _classifier.default_args
+
+_classifier_args = {
+    'model_def_file': (
+        '{}/models/bvlc_reference_caffenet/deploy.prototxt'.format(REPO_DIRNAME)),
+    'pretrained_model_file': (
+        '{}/models/bvlc_reference_caffenet.caffemodel'.format(REPO_DIRNAME)),
+    'mean_file': (
+        '{}/python/caffe/imagenet/ilsvrc_2012_mean.npy'.format(REPO_DIRNAME)),
+    'class_labels_file': (
+        '{}/data/ilsvrc12/synset_words.txt'.format(REPO_DIRNAME)),
+    'bet_file': (
+        '{}/data/ilsvrc12/imagenet.bet.pickle'.format(REPO_DIRNAME)),
+    'image_dim': 256,
+    'raw_scale': 255.0,
+    'gpu_mode': False,
+}
+
+
+_classifier = ImagenetClassifier(**_classifier_args)
 _classifier.net.forward()
 
 
