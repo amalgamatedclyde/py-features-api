@@ -29,8 +29,10 @@ supervisord.log  tornado-stderr.log  tornado-stdout.log
 ##Fleet Configuration
 Right now we'll run 2x m4.xlarge instances behind an AWS classic load balancer. That'll give us 8 CPUs or 32 Tornado processes.
 
-
 ##Rolling Deployments
 
 **Strategy:** 2 instances are always up. when a push occurs, a new third instance pops up. after it passes the health checks it goes online and one of the other instances is stopped for the update.
 at that point one instance is running the update and the other is running the previous build. when the second instance passes the health check it goes online and the remaining instance is terminated.
+
+####To Do
+start Supervisor as a service. ran into a problem adding pycaffe path to environment in the service shell script.
