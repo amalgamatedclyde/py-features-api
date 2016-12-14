@@ -1,9 +1,14 @@
 __author__ = 'clyde'
 from locust import HttpLocust, TaskSet, task
 import base64
+import os
+from random import choice
 
-with open('SA97.jpg', 'rb') as fh:
-    encoded_data = base64.b64encode(fh.read())
+
+images = os.listdir('/home/clyde/markable/imgs')
+
+# with open('SA97.jpg', 'rb') as fh:
+#     encoded_data = base64.b64encode(fh.read())
 
 
 class UserBehavior(TaskSet):
@@ -13,7 +18,8 @@ class UserBehavior(TaskSet):
 
     @task(1)
     def post(self):
-        post_dict = {'data': {"image_file": encoded_data}}
+        # post_dict = {'data': {"image_file": encoded_data}}
+        post_dict = {'data': {"image_uri": choice(images)}}
         self.client.post("/classes", json=post_dict)
 
 
