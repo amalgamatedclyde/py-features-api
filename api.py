@@ -12,23 +12,29 @@ class FriendlyError(Exception):
 class ClassesHandler(BugsnagRequestHandler):
 
     def prepare(self):
-        if self.request.headers["Content-Type"].startswith("application/json"):
-            self.json_args = json.loads(self.request.body)
-        else:
+        try:
+            if self.request.headers["Content-Type"].startswith("application/json"):
+                self.json_args = json.loads(self.request.body)
+            else:
+                self.json_args = None
+        except:
             self.json_args = None
+
 
     def post(self):
         # Get a convenient handle on the given base64 string
-        req_data = self.json_args['data']
+
         try:
             # pass the base64 enc string to classifier
+            req_data = self.json_args['data']
             classes = nets.classify(image_file=req_data['image_file'])
         except KeyError:
 
             try:
+
                 classes = nets.classify(url=req_data['image_uri'])
             except KeyError:
-                pass
+                classes = ("there was an error: ", "you image coul not be opened")
         # Send the extracted features back in the response
         self.write(dict(data=classes))
 
