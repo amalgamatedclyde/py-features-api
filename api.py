@@ -20,7 +20,6 @@ class ClassesHandler(BugsnagRequestHandler):
         except:
             self.json_args = None
 
-
     def post(self):
         # Get a convenient handle on the given base64 string
         req_data = self.json_args.get('data')
@@ -38,7 +37,7 @@ class ClassesHandler(BugsnagRequestHandler):
         try:
             self.write(dict(data=classes))
         except TypeError as e:
-            self.write(e)
+            self.write(str(e))
 
 
 
