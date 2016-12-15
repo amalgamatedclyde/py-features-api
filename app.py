@@ -5,11 +5,12 @@ import logging
 import numpy as np
 import pandas as pd
 import caffe
+import warnings
 
 # REPO_DIRNAME = os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + '/../..')
 # REPO_DIRNAME = os.getcwd()
-# REPO_DIRNAME = "/home/clyde/markable/py-features-api"
-REPO_DIRNAME = "/home/ubuntu/py-features-api"
+REPO_DIRNAME = "/home/clyde/markable/py-features-api"
+# REPO_DIRNAME = "/home/ubuntu/py-features-api"
 UPLOAD_FOLDER = '/tmp/caffe_demos_uploads'
 ALLOWED_IMAGE_EXTENSIONS = set(['png', 'bmp', 'jpg', 'jpe', 'jpeg', 'gif'])
 
@@ -44,7 +45,9 @@ class ImagenetClassifier(object):
                                      }
                                      for l in f.readlines()
                                      ])
-    labels = labels_df.sort('synset_id')['name'].values
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        labels = labels_df.sort('synset_id')['name'].values
     bet = cPickle.load(open(bet_file))
     bet['infogain'] -= np.array(bet['preferences']) * 0.1
 
