@@ -4,6 +4,11 @@ import nets
 from bugsnag.tornado import BugsnagRequestHandler
 
 
+class FriendlyError(Exception):
+    """my hovercraft is full of eels"""
+
+
+
 class ClassesHandler(BugsnagRequestHandler):
 
     def prepare(self):
@@ -26,4 +31,27 @@ class ClassesHandler(BugsnagRequestHandler):
                 pass
         # Send the extracted features back in the response
         self.write(dict(data=classes))
+
+
+class UnhandledExceptionHandler(BugsnagRequestHandler):
+
+    def get(self):
+        r = 1/0
+        self.write(r)
+
+
+class HandledException(BugsnagRequestHandler):
+
+    def get(self):
+        try:
+            1+'1'
+        except TypeError:
+            self.write('this is a handled exception ')
+
+
+
+
+
+
+
 

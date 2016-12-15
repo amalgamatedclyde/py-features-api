@@ -74,3 +74,4 @@ class ImagenetClassifier(object):
             # logging.info('Classification error: %s', err)
             return (False, 'Something went wrong when classifying the '
                            'image. Maybe try another one?')
+

@@ -34,7 +34,7 @@ supervisord.log  tornado-stderr.log  tornado-stdout.log
 
 **Supervisord** is the Supervisor daemon. Its config file is located at /opt/anaconda2/etc/supervisord.conf
 
-Currently planning on implementing a centralized logging system using CloudWatch.
+Ideally this all would be moved to a centralized logging system using CloudWatch.
 
 ##Fleet Configuration
 Right now we're running 2x m4.xlarge instances behind an AWS classic load balancer. That gives us 8 CPUs or 32 Tornado processes.
