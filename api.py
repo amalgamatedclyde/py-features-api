@@ -1,6 +1,7 @@
 import json
 import tornado.web
 import nets
+import bugsnag
 from bugsnag.tornado import BugsnagRequestHandler
 
 
@@ -27,16 +28,17 @@ class ClassesHandler(BugsnagRequestHandler):
             # pass the base64 enc string to classifier
 
             classes = nets.classify(image_file=req_data['image_file'])
-        except KeyError:
-
+        except KeyError as e:
+            bugsnag.notify(e)
             try:
                 classes = nets.classify(url=req_data['image_uri'])
-            except KeyError:
-                pass
+            except KeyError as e:
+                bugsnag.notify(e)
         # Send the extracted features back in the response
         try:
             self.write(dict(data=classes))
         except TypeError as e:
+            bugsnag.notify(e)
             self.write(str(e))
 
 

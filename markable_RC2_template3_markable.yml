@@ -28,15 +28,14 @@ Resources:
       KeyName:
         Ref: "myKeyPair"
       SecurityGroups:
-      - "sg-2746385a"
+      - "sg-c5b595b8"
 
   MyLoadBalancer:
     Type: AWS::ElasticLoadBalancing::LoadBalancer
     Properties:
       Subnets:
-        - subnet-9e49bbc7
-
-      SecurityGroups: ["sg-2746385a"]
+        - subnet-afd08787
+      SecurityGroups: ["sg-c5b595b8"]
       ConnectionDrainingPolicy:
         Enabled: true
         Timeout: 60
@@ -57,13 +56,15 @@ Resources:
     Properties:
       LaunchConfigurationName: !Ref MyLaunchConfig
       VPCZoneIdentifier:
-        - subnet-9e49bbc7
-
+        - subnet-afd08787
       MinSize: '2'
       MaxSize: '4'
       DesiredCapacity: '3'
       LoadBalancerNames:
       - Ref: MyLoadBalancer
+      Tags:
+          Key: "version"
+          Value: "dev-app"
     UpdatePolicy:
       AutoScalingRollingUpdate:
         MinInstancesInService: '2'

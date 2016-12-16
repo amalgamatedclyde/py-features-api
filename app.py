@@ -71,7 +71,7 @@ class ImagenetClassifier(object):
 
             return (True, meta, bet_result, '%.3f' % (endtime - starttime))
 
-        except Exception as err:  # what can go wrong?
+        except Exception as err:  # can throw IOError
             raise ClassificationError('Something went wrong when classifying the '
                                       'image. Maybe try another one?')
             # logging.info('Classification error: %s', err)

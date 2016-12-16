@@ -3,7 +3,9 @@ import tornado.web
 from tornado import httpserver
 from api import ClassesHandler, UnhandledExceptionHandler, HandledException
 from tornado.options import define, options
+from tornado.log import enable_pretty_logging
 
+enable_pretty_logging()
 define("port", default=8888)
 import os
 import bugsnag
@@ -13,7 +15,7 @@ bugsnag.configure(
     project_root="/home/markable/py-features-api",
 )
 
-
+#CodeDeploy Test
 # class MainHandler(tornado.web.RequestHandler):
 #     """mainhandler"""
 #     def get(self):
