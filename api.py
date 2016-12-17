@@ -5,6 +5,7 @@ import bugsnag
 from bugsnag.tornado import BugsnagRequestHandler
 import logging
 import sys
+import tornado.log
 
 logger = logging.getLogger(__name__)
 access_log = logging.getLogger('tornado.access')
