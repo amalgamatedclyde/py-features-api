@@ -3,6 +3,16 @@ import tornado.web
 import nets
 import bugsnag
 from bugsnag.tornado import BugsnagRequestHandler
+import logging
+import sys
+
+logger = logging.getLogger(__name__)
+access_log = logging.getLogger('tornado.access')
+access_log.propagate = False
+# make sure access log is enabled even if error level is WARNING|ERROR
+access_log.setLevel(logging.INFO)
+stdout_handler = logging.StreamHandler(sys.stdout)
+access_log.addHandler(stdout_handler)
 
 
 class FriendlyError(Exception):
