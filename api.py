@@ -47,6 +47,7 @@ class ClassesHandler(BugsnagRequestHandler):
                 bugsnag.notify(e)
         # Send the extracted features back in the response
         try:
+            logging.info(str(classes))
             self.write(dict(data=classes))
         except TypeError as e:
             bugsnag.notify(e)
