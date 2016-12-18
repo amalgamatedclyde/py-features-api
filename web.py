@@ -1,7 +1,7 @@
 import tornado.ioloop
 import tornado.web
 from tornado import httpserver
-from api import ClassesHandler, UnhandledExceptionHandler, HandledException
+from api import ClassesHandler, UnhandledExceptionHandler, HandledException, BadDataHandler
 from tornado.options import define, options
 from tornado.log import enable_pretty_logging
 #test of deploy
@@ -16,13 +16,6 @@ bugsnag.configure(
     project_root="/home/markable/py-features-api",
 )
 
-#CodeDeploy Test
-# class MainHandler(tornado.web.RequestHandler):
-#     """mainhandler"""
-#     def get(self):
-#         self.write('Welcome!')
-
-
 class MainHandler(BugsnagRequestHandler):
     """mainhandler"""
 
@@ -35,7 +28,8 @@ def make_app():
         (r"/", MainHandler),
         (r"/classes", ClassesHandler),
         (r"/bad_error", UnhandledExceptionHandler),
-        (r"/handled", HandledException)
+        (r"/handled", HandledException),
+        (r"/bad_data", BadDataHandler)
     ])
 
 if __name__ == "__main__":

@@ -6,6 +6,7 @@ from bugsnag.tornado import BugsnagRequestHandler
 import logging
 import sys
 import tornado.log
+import base64
 
 logger = logging.getLogger(__name__)
 access_log = logging.getLogger('tornado.access')
@@ -72,8 +73,14 @@ class HandledException(BugsnagRequestHandler):
             self.write('this is a handled exception ')
 
 
+class BadDataHandler(BugsnagRequestHandler):
 
+    with open('RickyMujica_picture1.jpg', 'rb') as fh:
+        image = fh.read()
 
+    def post(self):
+        classes = nets.classify(image_file=self.image)
+        self.write(dict(data=classes))
 
 
 
