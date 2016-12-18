@@ -28,8 +28,7 @@ def make_app():
         (r"/", MainHandler),
         (r"/classes", ClassesHandler),
         (r"/bad_error", UnhandledExceptionHandler),
-        (r"/handled", HandledException),
-        (r"/bad_data", BadDataHandler)
+        (r"/handled", HandledException)
     ])
 
 if __name__ == "__main__":
