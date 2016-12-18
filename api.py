@@ -73,14 +73,14 @@ class HandledException(BugsnagRequestHandler):
             self.write('this is a handled exception ')
 
 
-class BadDataHandler(BugsnagRequestHandler):
-
-    with open('/home/ubuntu/py-features-api/RickyMujica_picture1.jpg', 'rb') as fh:
-        image = fh.read()
-
-    def post(self):
-        classes = nets.classify(image_file=self.image)
-        self.write(dict(data=classes))
+# class BadDataHandler(BugsnagRequestHandler):
+#
+#     with open('/home/ubuntu/py-features-api/RickyMujica_picture1.jpg', 'rb') as fh:
+#         image = fh.read()
+#
+#     def post(self):
+#         classes = nets.classify(image_file=self.image)
+#         self.write(dict(data=classes))
 
 
 
