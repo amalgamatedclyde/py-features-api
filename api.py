@@ -50,6 +50,7 @@ class ClassesHandler(BugsnagRequestHandler):
             logging.info(str(classes))
             self.write(dict(data=classes))
         except TypeError as e:
+            logging.error(e)
             bugsnag.notify(e)
             self.write(str(e))
 
