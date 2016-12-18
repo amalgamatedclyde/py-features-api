@@ -3,7 +3,9 @@ os: linux
 files:
   - source: web.py
     destination: /home/ubuntu/py-features-api/
-#hooks:
-#   BeforeInstall:
-#     - location: scripts/delete_file.sh
-#       timeout: 180
+  - source: api.py
+    destination: /home/ubuntu/py-features-api/
+hooks:
+   AfterInstall:
+     - location: scripts/restart_supervisor.sh
+       timeout: 180

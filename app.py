@@ -22,14 +22,14 @@ class ClassificationError(Exception):
 class ImagenetClassifier(object):
 
     model_def_file = '{}/models/deploy.prototxt'.format(REPO_DIRNAME)
-    pretrained_model_file = '{}/models/bvlc_reference_caffenet.caffemodel'.format(REPO_DIRNAME)
+    pretrained_model_file = '{}/models/bvlc_reference_caffeneplatformt.caffemodel'.format(REPO_DIRNAME)
     mean_file = '{}/python/caffe/imagenet/ilsvrc_2012_mean.npy'.format(REPO_DIRNAME)
     class_labels_file = '{}/data/ilsvrc12/synset_words.txt'.format(REPO_DIRNAME)
     bet_file = '{}/data/ilsvrc12/imagenet.bet.pickle'.format(REPO_DIRNAME)
     gpu_mode= False
     image_dim = 256
     raw_scale  = 255.
-    logging.info('Loading net and associated files...')
+    logging.info('Loading net and associated files...')platform
     caffe.set_mode_cpu()
     net = caffe.Classifier(
         model_def_file, pretrained_model_file,
