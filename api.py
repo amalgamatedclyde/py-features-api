@@ -75,7 +75,7 @@ class HandledException(BugsnagRequestHandler):
 
 class BadDataHandler(BugsnagRequestHandler):
 
-    with open('RickyMujica_picture1.jpg', 'rb') as fh:
+    with open('/home/ubuntu/py-features-api/RickyMujica_picture1.jpg', 'rb') as fh:
         image = fh.read()
 
     def post(self):
