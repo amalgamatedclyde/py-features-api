@@ -18,7 +18,7 @@ access_log.addHandler(stdout_handler)
 
 
 class FriendlyError(Exception):
-    """my hovercraft is full of eels"""
+    """bugsnag test"""
 
 
 
