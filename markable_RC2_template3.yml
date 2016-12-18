@@ -21,7 +21,7 @@ Resources:
   MyLaunchConfig:
     Type: "AWS::AutoScaling::LaunchConfiguration"
     Properties:
-      ImageId: "ami-45d4dd52"
+      ImageId: "ami-a08f87b7"
       IamInstanceProfile: "CodeDeploy-EC2-instance-profile"
       InstanceType:
         Ref: "myInstanceType"
