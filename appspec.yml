@@ -7,5 +7,6 @@ files:
     destination: /home/ubuntu/py-features-api/
 hooks:
    AfterInstall:
-     - location: scripts/restart_supervisor.sh
+     - location: restart_supervisor.sh
+       runas: ubuntu
        timeout: 180
